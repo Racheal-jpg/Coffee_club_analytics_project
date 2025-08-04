@@ -8,7 +8,7 @@ Coffee Club helps to truly **understand its customers**. We're using this data t
 
 -   Understanding shared characteristics and behaviors that define each identified customer group.
 
--    Enabling the development of targeted marketing strategies for each distinct customer group.
+-   Enabling the development of targeted marketing strategies for each distinct customer group.
 
 To facilitate the creation of personalized customer experiences, ultimately enhancing customer satisfaction and loyalty for Coffee Club.
 
