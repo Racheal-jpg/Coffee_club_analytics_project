@@ -18,14 +18,11 @@ You'll need the following installed to run this project:
 
 #### Database setup
 
-1.  Restore database on pgadmin .
+1.  **Restore database on pgadmin .**
 
 -   Create an empty database named `coffee_club_db`.
 
-```{=html}
-<!-- -->
-```
--   Right-click on `coffee_club_db` and select **Restore...**.
+-   Right-click on `coffee_club_db` and select Restore.
 
 -   Find and select your `.sql` backup file.
 
