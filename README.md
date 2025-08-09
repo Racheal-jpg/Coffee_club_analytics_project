@@ -45,17 +45,17 @@ Once the database is set up, you can connect to it from RStudio.
 
 2.  Use the following code to connect.
 
-    `## storing the password`
+    \## storing the password
 
     `db_password_1 <- key_set("coffee_club_password", username = "postgres")`
 
-    `## Retrieving the password for use`
+    \## Retrieving the password for use
 
     `db_password <- key_get("coffee_club_password", username = "postgres")`
 
-    `#Defining the connection parameters`
+    #Defining the connection parameters
 
-    `##using db_connection() function`
+    ##using db_connection() function
 
     `db_host <- "localhost"`
 
@@ -67,7 +67,7 @@ Once the database is set up, you can connect to it from RStudio.
 
     `password <- "db_password"`
 
-    `## Establishing connection`
+    \## Establishing connection
 
     `con <- dbConnect(`
 
@@ -85,9 +85,9 @@ Once the database is set up, you can connect to it from RStudio.
 
     `)`
 
-    `#check if the connection was a success`
+    #check if the connection was a success
 
-    `##using the if-else conditional statement##`
+    ##using the if-else conditional statement##
 
     `if(dbIsValid(con)){`
 
@@ -99,13 +99,13 @@ Once the database is set up, you can connect to it from RStudio.
 
     `}`
 
-    `# Listing all tables in coffee_club database`
+    \# Listing all tables in coffee_club database
 
     `dbListTables(con)`
 
-    `# Importing the three tables for merging`
+    \# Importing the three tables for merging
 
-    `# Importing the customer Table`
+    \# Importing the customer Table
 
     `customers_table <- dbReadTable(con, "customers")`
 
@@ -113,7 +113,7 @@ Once the database is set up, you can connect to it from RStudio.
 
     `offer_table <- dbReadTable(con, "offers")`
 
-    `#check structure of each table`
+    #check structure of each table
 
     `str(customers_table)`
 
@@ -121,7 +121,7 @@ Once the database is set up, you can connect to it from RStudio.
 
     `str(event_table)`
 
-    `#check dimension of each table`
+    #check dimension of each table
 
     `dim(customers_table)`
 
@@ -129,7 +129,7 @@ Once the database is set up, you can connect to it from RStudio.
 
     `dim(offer_table)`
 
-    `# Used view to get tables of each data #`
+    \# Used view to get tables of each data \#
 
     `View(customers_table)`
 
@@ -137,6 +137,6 @@ Once the database is set up, you can connect to it from RStudio.
 
     `View(event_table)`
 
-    `## then close connection`
+    \## then close connection
 
     `dbDisconnect(con)`
