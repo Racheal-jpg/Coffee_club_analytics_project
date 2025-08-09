@@ -1,139 +1,143 @@
-> # Coffee club_Analytics_Project
+# Coffee Club Analytics Project
 
-This project uses R to analyze customer data from the `coffee_club_database` .The main goal is to group people into similar Preferences.This will help coffee_club send more personalized offers, making marketing smarter and improving the customer experience. The work starts with setting up the database in pgAdmin and then connecting to RStudio for the analysis.
+This project uses R to analyze customer data from the `coffee_club_db` database. The main goal is to group customers into similar preference groups to help Coffee Club send more personalized offers, making marketing smarter and improving the customer experience.
 
-#### Getting Started
+## Table of Contents
+
+-   [Getting Started](#getting-started)
+    -   [Requirements](#requirements)
+    -   [Database Setup](#database-setup)
+    -   [RStudio Connection](#rstudio-connection)
+-   [Usage](#usage)
+-   [Analysis](#analysis)
+-   [Contributing](#contributing)
+-   [License](#license)
+
+## Getting Started {#getting-started}
 
 This section explains how to set up the project and connect to the database.
 
-#### Requirements
+### Requirements {#requirements}
 
 You'll need the following installed to run this project:
 
--   **`PostgreSQL`** and **`pgAdmin`**
-
+-   **PostgreSQL** and **pgAdmin**
 -   **RStudio**
+-   **R packages**:
+    -   `DBI`
+    -   `RPostgres`
+    -   `keyring`
+    -   `dplyr`
 
--   R packages: `DBI`, `RPostgres`, `Keyring`, `Dplyr`
+You can install the required R packages using the following command in the RStudio console:
 
-#### Database setup
+``` r
+install.packages(c("DBI", "RPostgres", "keyring", "dplyr"))
+```
 
-1.  **Restore database on pgadmin .**
+### Database Setup {#database-setup}
 
--   Create an empty database named `coffee_club_db`.
-
--   Right-click on `coffee_club_db` and select Restore.
-
--   Find and select your `.sql` backup file.
-
--   Click **Restore** to fill the tables with data.
-
+1.  **Restore the database in pgAdmin:**
+    -   Create a new, empty database named `coffee_club_db`.
+    -   Right-click on `coffee_club_db` and select **Restore**.
+    -   Find and select your `.sql` backup file.
+    -   Click **Restore** to populate the tables with data.
 2.  **Connect the Tables:**
+    -   Ensure that the tables in the database are correctly linked using primary and foreign keys. A **primary key** is a unique ID for each record (e.g., a customer ID), and a **foreign key** links one table to a primary key in another table.
 
--   You will need to link the database tables together. A **primary key** is a unique ID for each item (like a customer ID). A **foreign key** is a link from one table to a primary key in another table, connecting them .
-
-R-studio connection
+### RStudio Connection {#rstudio-connection}
 
 Once the database is set up, you can connect to it from RStudio.
 
-1.  First make sure you have the necessary R packages installed:
+1.  **Store your database password securely using the `keyring` package:**
 
-    install.packages (DBI), Install.packages (RPostgres)
+    ``` r
+    # Store the password (you will be prompted to enter it)
+    keyring::key_set("coffee_club_password", username = "postgres")
+    ```
 
-2.  Use the following code to connect.
+2.  **Connect to the database using the following R code:**
 
-    \## storing the password
+    ``` r
+    # Load the necessary libraries
+    library(DBI)
+    library(RPostgres)
+    library(keyring)
+    library(dplyr)
 
-    `db_password_1 <- key_set("coffee_club_password", username = "postgres")`
+    # Retrieve the password
+    db_password <- key_get("coffee_club_password", username = "postgres")
 
-    \## Retrieving the password for use
+    # Define the connection parameters
+    db_host <- "localhost"
+    db_port <- "5432"
+    db_name <- "coffee_club_db" # Corrected database name
+    db_user <- "postgres"
 
-    `db_password <- key_get("coffee_club_password", username = "postgres")`
+    # Establish the connection
+    con <- dbConnect(
+      RPostgres::Postgres(),
+      host = db_host,
+      port = db_port,
+      dbname = db_name,
+      user = db_user,
+      password = db_password
+    )
 
-    #Defining the connection parameters
+    # Check if the connection was successful
+    if (dbIsValid(con)) {
+      message("Connection successful!")
+    } else {
+      stop("Connection failed.")
+    }
+    ```
 
-    ##using db_connection() function
+## Usage {#usage}
 
-    `db_host <- "localhost"`
+After connecting to the database, you can import the tables into R data frames:
 
-    `db_port <- "5432"`
+``` r
+# List all tables in the database
+dbListTables(con)
 
-    `db_name <- "coffee_club"`
+# Import the tables
+customers_table <- dbReadTable(con, "customers")
+events_table <- dbReadTable(con, "events")
+offers_table <- dbReadTable(con, "offers")
 
-    `db_user <- "postgres"`
+# Check the structure and dimensions of each table
+str(customers_table)
+dim(customers_table)
 
-    `password <- "db_password"`
+str(events_table)
+dim(events_table)
 
-    \## Establishing connection
+str(offers_table)
+dim(offers_table)
 
-    `con <- dbConnect(`
+# View the tables
+View(customers_table)
+View(events_table)
+View(offer_table)
 
-    `RPostgres::Postgres(),`
+# Remember to close the connection when you're done
+dbDisconnect(con)
+```
 
-    `host = db_host,`
+## Analysis {#analysis}
 
-    `port = db_port,`
+The core of this project involves analyzing the customer data to identify preference groups. This can include:
 
-    `dbname = db_name,`
+-   **Exploratory Data Analysis (EDA):** Understanding the distributions and relationships in the data.
+-   **Customer Segmentation:** Using clustering algorithms (e.g., K-means) to group customers based on their purchasing behavior and preferences.
+-   **Offer Analysis:** Determining which offers are most effective for different customer segments.
 
-    `user = db_user,`
+The analysis scripts can be found in the project directory.
 
-    `password = db_password`
+## Contributing {#contributing}
 
-    `)`
+Contributions are welcome! If you have any suggestions or improvements, please open an issue or submit a pull request.
 
-    #check if the connection was a success
+## License {#license}
 
-    ##using the if-else conditional statement##
-
-    `if(dbIsValid(con)){`
-
-    `message("sucessful")`
-
-    `} else{`
-
-    `stop("Failed")`
-
-    `}`
-
-    \# Listing all tables in coffee_club database
-
-    `dbListTables(con)`
-
-    \# Importing the three tables for merging
-
-    \# Importing the customer Table
-
-    `customers_table <- dbReadTable(con, "customers")`
-
-    `event_table <- dbReadTable(con , "events")`
-
-    `offer_table <- dbReadTable(con, "offers")`
-
-    #check structure of each table
-
-    `str(customers_table)`
-
-    `str(offer_table)`
-
-    `str(event_table)`
-
-    #check dimension of each table
-
-    `dim(customers_table)`
-
-    `dim(event_table)`
-
-    `dim(offer_table)`
-
-    \# Used view to get tables of each data \#
-
-    `View(customers_table)`
-
-    `View(offer_table)`
-
-    `View(event_table)`
-
-    \## then close connection
-
-    `dbDisconnect(con)`
+This project is licensed under the MIT License. See the `LICENSE` file for more details.

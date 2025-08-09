@@ -115,5 +115,8 @@ customers_table <- customers_table %>%
  View(coffee_club)
  
 #saving as a CSV file
- write.csv(coffee_club,"coffe_club.csv", row.names = FALSE)
+ write.csv(coffee_club,"coffee_club.csv", row.names = FALSE)
+ 
+#compressing the csv file
+ readr::write_csv(coffee_club, "coffee_club.csv.gz")
 
