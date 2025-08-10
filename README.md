@@ -2,8 +2,6 @@
 
 This project uses R to analyze customer data from the `coffee_club_db` database. The main goal is to group customers into similar preference groups to help Coffee Club send more personalized offers, making marketing smarter and improving the customer experience.
 
-
-
 ## Getting Started {#getting-started}
 
 This section explains how to set up the project and connect to the database.
@@ -87,7 +85,7 @@ Once the database is set up, you can connect to it from RStudio.
 
 The following R code is used to clean and preprocess the data after it has been loaded from the database. This includes handling missing values, calculating medians, and joining tables to create a final dataset for analysis.
 
-```r
+``` r
 # data cleaning
 # customers_table 
 #Replacing or NUll and Na's in the gender column with the string "others"
