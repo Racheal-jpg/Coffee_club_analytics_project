@@ -2,11 +2,11 @@
 
 This project uses R to analyze customer data from the `coffee_club_db` database. The main goal is to group customers into similar preference groups to help Coffee Club send more personalized offers, making marketing smarter and improving the customer experience.
 
-## Getting Started {#getting-started}
+## Getting Started
 
 This section explains how to set up the project and connect to the database.
 
-### Requirements {#requirements}
+### Requirements
 
 You'll need the following installed to run this project:
 
@@ -24,7 +24,7 @@ You can install the required R packages using the following command in the RStud
 install.packages(c("DBI", "RPostgres", "keyring", "dplyr"))
 ```
 
-### Database Setup {#database-setup}
+### Database Setup
 
 1.  **Restore the database in pgAdmin:**
     -   Create a new, empty database named `coffee_club_db`.
@@ -34,7 +34,7 @@ install.packages(c("DBI", "RPostgres", "keyring", "dplyr"))
 2.  **Connect the Tables:**
     -   Ensure that the tables in the database are correctly linked using primary and foreign keys. A **primary key** is a unique ID for each record (e.g., a customer ID), and a **foreign key** links one table to a primary key in another table.
 
-### RStudio Connection {#rstudio-connection}
+### RStudio Connection
 
 Once the database is set up, you can connect to it from RStudio.
 
@@ -81,7 +81,7 @@ Once the database is set up, you can connect to it from RStudio.
     }
     ```
 
-## Data Preprocessing {#data-preprocessing}
+## Data Preprocessing
 
 The following R code is used to clean and preprocess the data after it has been loaded from the database. This includes handling missing values, calculating medians, and joining tables to create a final dataset for analysis.
 
@@ -136,7 +136,7 @@ customers_table <- customers_table %>%
  readr::write_csv(coffee_club, "coffee_club.csv.gz")
 ```
 
-## Usage {#usage}
+## Usage
 
 After connecting to the database, you can import the tables into R data frames:
 
@@ -168,7 +168,7 @@ View(offer_table)
 dbDisconnect(con)
 ```
 
-## Analysis {#analysis}
+## Analysis
 
 The core of this project involves analyzing the customer data to identify preference groups. This can include:
 
@@ -178,10 +178,10 @@ The core of this project involves analyzing the customer data to identify prefer
 
 The analysis scripts can be found in the project directory.
 
-## Contributing {#contributing}
+## Contributing
 
 Contributions are welcome! If you have any suggestions or improvements, please open an issue or submit a pull request.
 
-## License {#license}
+## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
